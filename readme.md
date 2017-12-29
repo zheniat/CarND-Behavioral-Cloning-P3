@@ -29,11 +29,11 @@ The goals / steps of this project are the following:
 #### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
-* model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode
-* model.h5 containing a trained convolution neural network
-* readme.md summarizing the results
+* [model.py](./model.py) containing the script to create and train the model
+* [drive.py](./drive.py) for driving the car in autonomous mode
+* model.h5 containing a trained convolution neural network*
 * [video.mp4](./media/video.mp4)
+* this readme file summarizing the results
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing
@@ -51,7 +51,7 @@ The model.py file contains the code for training and saving the convolution neur
 
 My model consists of a convolution neural network with 5x5 and 3x3 filter sizes and depths between 24 and 64 (model.py lines 82-99).
 
-* The first layer of the model performs normalization using Keras lambda (code line 84).
+* The first layer of the model performs normalization using a Keras lambda layer (code line 84).
 * The image is then cropped to focus on the road features (line 86).
 * The following three convolutional layers use strided convolutions (lines 88-90) and the last two layers are non-strided. All layers use RELU to introduce nonlinearity.
 * Convolutional layers are followed by 4 fully connected layers (lines 95-98), terminating in a single value representing the turning angle.
@@ -68,7 +68,7 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving (7 laps), recovering from the left and right sides of the road (3 laps forward, 1 in reverse), and driving in the opposite direction of the track to remove left-hand bias (3 laps).
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving (7 laps), recovering from the left and right sides of the road (3 laps forward, 1 in reverse), and driving in the opposite direction of the track to remove the left-hand bias (3 laps).
 
 For details about how I created the training data, see the next section.
 
@@ -78,9 +78,9 @@ For details about how I created the training data, see the next section.
 
 The overall strategy for deriving a model architecture was to leverage a convolutional network to recognize image features, followed by a neural network to learn driving behavior as it relates to these features and the human driver choices when steering the car.
 
-My first step was to use a convolution neural network model similar to the [Nvidia self-driving car model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/). I thought this model might be appropriate because it was derived from a series of experiment controlling a car in a very similar setting.
+My first step was to use a convolutional neural network model similar to the [Nvidia self-driving car model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/). I thought this model might be appropriate because it was derived from a series of real-life experiments.
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set (80/20). My first model relied on training data from 4 laps and it did not perform well on the track. I tried adding three dropout layers (50%) in-between the connected layers, changing the dropout ratio (50-75%), adding dropout to the convolutional layers, and extending the training data by using left and right cameras. None of these attempts had any significant impact on the car's performance.
+In order to evaluate the model, I split my image and steering angle data into a training and validation set (80/20). My first model relied on training data from 4 laps and it did not perform well on the track. I tried adding three dropout layers (50%) in-between the connected layers, changing the dropout ratio (50-75%), adding dropout to the convolutional layers, and extending the training data by using left and right cameras. None of these attempts had any significant impact on the car's performance.
 
 I recorded additional driving data (10 laps total). This made immediate difference in the car's performance and it was able to complete the loop by using only center camera.
 
@@ -90,7 +90,7 @@ The model was still overfitting, which is apparent from the low mean squared err
 
 ![alt text][image1]
 
-I added three dropout layers in-between the connected layers (50% dropout), which helped the model converge better, yet the car ended up performing worse on the first and second track with the dropout layers. I removed the dropout layer in the final model.
+I added three dropout layers in-between the connected layers (50% dropout), which helped the model converge better, yet the car ended up performing worse on the first and second track. I removed the dropout layers in the final model.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road at a speed of 30 mph. The driving is jerky in a few places, but overall it is better than my manual driving.
 
@@ -106,7 +106,7 @@ I then recorded the vehicle recovering from the left side and right sides of the
 ![alt text][image5]
 ![alt text][image6]
 
-To augment the data sat, I also flipped images and angles to generalize the model away from left turns. For example, here is an image that has then been flipped:
+To augment the data sat, I also flipped images and angles to generalize the model away from left turns. For example, here is an image that has been flipped:
 
 ![alt text][image7]
 
