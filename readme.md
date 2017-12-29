@@ -33,6 +33,7 @@ My project includes the following files:
 * drive.py for driving the car in autonomous mode
 * model.h5 containing a trained convolution neural network
 * readme.md summarizing the results
+* [video.mp4](./media/video.mp4)
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing
@@ -77,7 +78,7 @@ For details about how I created the training data, see the next section.
 
 The overall strategy for deriving a model architecture was to leverage a convolutional network to recognize image features, followed by a neural network to learn driving behavior as it relates to these features and the human driver choices when steering the car.
 
-My first step was to use a convolution neural network model similar to the [Nvidia self-driving car model] (https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/). I thought this model might be appropriate because it was derived from a series of experiment controlling a car in a very similar setting.
+My first step was to use a convolution neural network model similar to the [Nvidia self-driving car model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/). I thought this model might be appropriate because it was derived from a series of experiment controlling a car in a very similar setting.
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set (80/20). My first model relied on training data from 4 laps and it did not perform well on the track. I tried adding three dropout layers (50%) in-between the connected layers, changing the dropout ratio (50-75%), adding dropout to the convolutional layers, and extending the training data by using left and right cameras. None of these attempts had any significant impact on the car's performance.
 
