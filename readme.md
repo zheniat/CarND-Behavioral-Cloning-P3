@@ -80,19 +80,17 @@ The overall strategy for deriving a model architecture was to leverage a convolu
 
 My first step was to use a convolutional neural network model similar to the [Nvidia self-driving car model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/). I thought this model might be appropriate because it was derived from a series of real-life experiments.
 
-In order to evaluate the model, I split my image and steering angle data into a training and validation set (80/20). My first model relied on training data from 4 laps and it did not perform well on the track. I tried adding three dropout layers (50%) in-between the connected layers, changing the dropout ratio (50-75%), adding dropout to the convolutional layers, and extending the training data by using left and right cameras. None of these attempts had any significant impact on the car's performance.
+In order to evaluate the model, I split my image and steering angle data into a training and validation set (80/20). My first model relied on training data from 4 laps and it did not perform well on the track.
 
 I recorded additional driving data (10 laps total). This made immediate difference in the car's performance and it was able to complete the loop by using only center camera.
 
-The car was still going off the road in a few places. I recorded 4 laps of driving the car off the side of the road, which addressed this problem.
+The car was still going off the road in a few places. I recorded 4 laps of driving the car off the side of the road, which addressed this problem. I extended the training data by using left and right cameras.
 
-The model was still overfitting, which is apparent from the low mean squared error on the training set but a high mean squared error on the validation set.
+The model was still overfitting, which was apparent from the low mean squared error on the training set but a high mean squared error on the validation set. I added three three dropout layers (50%) in-between the connected layers, which helped the model to converge better
 
 ![alt text][image1]
 
-I added three dropout layers in-between the connected layers (50% dropout), which helped the model converge better, yet the car ended up performing worse on the first and second track. I removed the dropout layers in the final model.
-
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road at a speed of 30 mph. The driving is jerky in a few places, but overall it is better than my manual driving.
+At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road at a speed of 30 mph. The driving was smooth and better than my manual driving.
 
 #### 2. Creation of the Training Set & Training Process
 
@@ -106,12 +104,12 @@ I then recorded the vehicle recovering from the left side and right sides of the
 ![alt text][image5]
 ![alt text][image6]
 
-To augment the data sat, I also flipped images and angles to generalize the model away from left turns. For example, here is an image that has been flipped:
+To augment the data set, I added images with varying brightness, added random shadows, and flipped images and angles to generalize the model away from left turns. For example, here is an image that has been flipped:
 
 ![alt text][image7]
 
-After the collection process, I had 26,632 data points. I doubled the amount of data by adding mirror images. I then preprocessed this data by cropping the image to focus training on the features close to the road.
+After the collection process, I had 38,130 data points. I doubled the amount of data by adding mirror images and added 80% more images by augmenting random images (brightness, shadows). I then preprocessed this data by cropping the image to focus training on the features close to the road.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set.
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 4-5 as evidenced by the point of convergence between the training and validation set. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 4-5 as evidenced by the point of convergence between the training and validation set. I used an adam optimizer so that manually training the learning rate wasn't necessary. I also discovered that using smaller batch sizes (32) made the model converge better than using large batch sizes (312).
