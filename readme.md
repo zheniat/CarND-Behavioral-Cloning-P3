@@ -49,26 +49,26 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 5x5 and 3x3 filter sizes and depths between 24 and 64 (model.py lines 82-99).
+My model consists of a convolution neural network with 5x5 and 3x3 filter sizes and depths between 24 and 64 (model.py lines 174-195).
 
-* The first layer of the model performs normalization using a Keras lambda layer (code line 84).
-* The image is then cropped to focus on the road features (line 86).
-* The following three convolutional layers use strided convolutions (lines 88-90) and the last two layers are non-strided. All layers use RELU to introduce nonlinearity.
-* Convolutional layers are followed by 4 fully connected layers (lines 95-98), terminating in a single value representing the turning angle.
+* The image is first cropped to focus on the road features (line 176).*
+* The next layer of the model performs normalization using a Keras lambda layer (code line 178).
+* The following three convolutional layers use strided convolutions (lines 180-185) and the last two layers are non-strided. All layers use RELU to introduce nonlinearity.
+* Convolutional layers are followed by 5 fully connected layers (lines 187-195), terminating in a single value representing the turning angle.
 
 #### 2. Attempts to reduce overfitting in the model
 
-In order to generalize the model the training data set was mirrored (lines 60-66), which helped ensure the model did not memorize the left-hand biased track. The car was driven in both direction of the track to generalize the training data.
+In order to generalize the model the training data set was mirrored (lines 67-69), which helped ensure the model did not memorize the left-hand biased track. The car was driven in both direction of the track to generalize the training data. The images were randomly modified to adjust brightness (lines 71-79) and to add random shadows (81-101) (courtesy of [Vivek Yadav](https://chatbotslife.com/using-augmentation-to-mimic-human-driving-496b569760a9))
 
 The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 102).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 201).
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving (7 laps), recovering from the left and right sides of the road (3 laps forward, 1 in reverse), and driving in the opposite direction of the track to remove the left-hand bias (3 laps).
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving (7 laps), recovering from the left and right sides of the road (3 laps forward, 1 in reverse), and driving in the opposite direction of the track to remove the left-hand bias (3 laps). I also drove the car on track 2 (3 forward laps, 2 backward)
 
 For details about how I created the training data, see the next section.
 
